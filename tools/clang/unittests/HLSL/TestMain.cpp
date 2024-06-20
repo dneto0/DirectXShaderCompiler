@@ -115,12 +115,14 @@ int main(int argc, char **argv) {
   // Initialize both gmock and gtest.
   testing::InitGoogleMock(&argc, argv);
 
+#if 0 // We want the usual Googletest printing of OK/FAIL
   // Switch event listener to one that only prints failures.
   testing::TestEventListeners &listeners =
       ::testing::UnitTest::GetInstance()->listeners();
   auto *defaultPrinter = listeners.Release(listeners.default_result_printer());
   // Google Test takes the ownership.
   listeners.Append(new FailurePrinter(defaultPrinter));
+#endif
 
   // Make it easy for a test to re-execute itself by saving argv[0].
   TestMainArgv0 = argv[0];
